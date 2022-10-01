@@ -45,7 +45,7 @@ start.addEventListener("click", startQuiz);
 
 // The quiz function itself
 function startQuiz() {
-    
+
     console.log(questionNumber);
     console.log(questionArray);
     console.log(questionArray[questionNumber]["question"])
@@ -91,7 +91,7 @@ function checkGuess(event) {
 
         // var pauseTime = setInterval(function() {
         //     console.log('pause seconds = ' +pauseSeconds);
-            
+
         //     if (pauseSeconds === 0) {
         //         clearInterval(pauseTime);
         //     };
@@ -106,9 +106,10 @@ function checkGuess(event) {
     }
 
     if (questionNumber === questionArray.length) {
-        setTimeout(finalScore, 1000);
+        pauseTimer();
+        // setTimeout(finalScore, 1000);
     } else {
-        setTimeout(startQuiz, 1000);
+        pauseQuiz();
     };
 }
 
@@ -147,8 +148,8 @@ function finalScore() {
                 var hsSubmitButton = document.querySelector(".initialSubmit");
                 hsSubmitButton.addEventListener("click", logHighScores);
             } else {
-                inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p>' ;
-                feedbackSection.innerHTML =  '<button class="playAgain">play Again?</button><button class="seeHS">See High Scores</button>';
+                inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p>';
+                feedbackSection.innerHTML = '<button class="playAgain">play Again?</button><button class="seeHS">See High Scores</button>';
                 let startAgain = document.querySelector(".playAgain");
                 startAgain.addEventListener("click", startOver);
                 let seeHS = document.querySelector(".seeHS");
@@ -235,4 +236,44 @@ function clearHighScores() {
 
 function startOver() {
     location.reload();
+}
+
+function pauseQuiz() {
+    var secondsLeft = 2;
+    // stop listening for clicks on rows. clicking during timer causes errors
+    document.querySelector(".guess0").removeEventListener("click", checkGuess);
+    document.querySelector(".guess1").removeEventListener("click", checkGuess);
+    document.querySelector(".guess2").removeEventListener("click", checkGuess);
+    document.querySelector(".guess3").removeEventListener("click", checkGuess);
+    // Sets interval in variable
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        if (secondsLeft === 0) {
+            // Stops execution of action at set interval
+            clearInterval(timerInterval);
+            // Calls function to create and append image
+            startQuiz();
+        }
+
+    }, 1000);
+}
+
+function pauseTimer() {
+    var secondsLeft = 2;
+    // stop listening for clicks on rows. clicking during timer causes errors
+    document.querySelector(".guess0").removeEventListener("click", checkGuess);
+    document.querySelector(".guess1").removeEventListener("click", checkGuess);
+    document.querySelector(".guess2").removeEventListener("click", checkGuess);
+    document.querySelector(".guess3").removeEventListener("click", checkGuess);
+    // Sets interval in variable
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        if (secondsLeft === 0) {
+            // Stops execution of action at set interval
+            clearInterval(timerInterval);
+            // Calls function to create and append image
+            finalScore();
+        }
+
+    }, 1000);
 }
