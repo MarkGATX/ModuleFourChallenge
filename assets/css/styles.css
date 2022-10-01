@@ -1,12 +1,107 @@
-main {
-    background-color: antiquewhite;
+:root {
+    --darkBackground: #94281d;
+    --lightText: #e0a770;
+    --lightBackground:#ffe5cc;
+    --darkText:#430600;
+    --lightTransparent: rgba(255, 229, 204, .3)
 }
+
+/* Global */
+* {
+    margin:0;
+    padding:0;
+}
+body {
+    background-color: var(--lightBackground);
+    color:var(--darkText);
+}
+
+button {
+    padding:20px;
+    font-weight:bold;
+    background-color:var(--darkBackground);
+    color:var(--lightText);
+    border-radius:10px;
+    margin:20px;  
+    box-shadow:inset 5px 5px var(--lightTransparent);  
+}
+
+button:active {
+    box-shadow:inset 5px 5px var(--darkText) ;
+}
+
+html {
+    font-family: Roboto, lato, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+header {
+    height:100px;
+    background-color:var(--darkBackground);
+    text-align: center;
+    padding:20px;
+    color: var(--lightText);
+}
+
+main {
+    
+    display:flex;
+    justify-content:space-between;
+    margin: 0 50px;
+    text-align:center; 
+}
+
+main ul, main ol {
+    margin-top:50px;
+    list-style-type: none;
+    text-align:left;
+}
+
+li {
+    margin:10px 0;
+}
+
+p {
+    margin:10px 0;
+}
+
+/* id's */
+#highScores {
+    width:20%;
+    padding:30px 0 0 0 ;
+    text-align: left;
+
+}
+
+#timer {
+    width:20%;
+    padding:30px 0 0 0 ;
+    text-align: right;
+
+}
+
+#questContainer {
+    width:55%;
+    border-left:10px solid var(--darkBackground);
+    border-right:10px solid var(--darkBackground);
+    border-bottom:10px solid var(--darkBackground);
+    padding:30px 10px 0 10px ;
+    min-height:60vh;
+
+}
+
+/* classes */
 .choices {
     background-color: bisque;
 }
 .results {
     background-color: darkgray;
 }
-#highScores {
-    background-color:blue;
-}
+
+/* Media queries */
+
+
+

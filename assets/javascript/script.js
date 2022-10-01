@@ -6,7 +6,7 @@ let score = 0
 scoresArray = [[0, 0]];
 // Define variables for DOM manipulation
 
-let mainText = document.querySelector(".main");
+let mainText = document.querySelector(".mainTextBox");
 let inputSection = document.querySelector(".choices");
 let feedbackSection = document.querySelector(".results");
 let start = document.querySelector(".start");
@@ -50,7 +50,7 @@ function startQuiz() {
     console.log(questionArray);
     console.log(questionArray[questionNumber]["question"])
     //Replace main text with question
-    mainText.textContent = questionArray[questionNumber]["question"];
+    mainText.innerHTML = '<h2>' + questionArray[questionNumber]["question"] + '<h2>';
 
     // populate choices as li 
     questList.setAttribute("class", "possAnswers");
