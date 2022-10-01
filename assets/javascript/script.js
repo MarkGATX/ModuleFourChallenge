@@ -1,3 +1,6 @@
+// define global variable to keep track of current question
+currentQuestion = 0;
+
 // Define variables for DOM manipulation
 let highScores = document.querySelector("#highScores");
 let mainText = document.querySelector(".main");
@@ -24,6 +27,8 @@ let questions = {
         answer: "<!DOCTYPE html>"
     }
 };
+//convert questions from object to array
+questionNumber = Object.values(questions);
 
 
 // Set event listener to High Scores button -- need to make function
@@ -34,32 +39,20 @@ start.addEventListener("click", startQuiz);
 
 // The quiz function itself
 function startQuiz() {
-    //convert questions from object to array
-     for (let i = 0; i < Object.keys(questions).length; i++) {
-        console.log(Object.values(questions));
-    questionNumber = Object.values(questions);
-    console.log(questionNumber[i].choices[0]);
     
-    // currentQuestion = "question" + i;
-    // console.log(currentQuestion);
-    // console.log(Object.values(questions));
-    // // console.log(Object.keys(questions).currentQuestion);
-    // console.log(Object.entries(questions));
-
-    // console.log(questions.currentQuestion.choices[0]);
-    mainText.innerHTML = questionNumber[i]["question"];
+    mainText.innerHTML = questionNumber[currentQuestion]["question"];
     // populate choices
     questList.setAttribute("class", "choices")
     inputSection.appendChild(questList);
-    questChoice0.textContent = questionNumber[i].choices[0];;
+    questChoice0.textContent = questionNumber[currentQuestion].choices[0];;
     questList.appendChild(questChoice0);
-    questChoice1.textContent = questionNumber[i].choices[1];;
+    questChoice1.textContent = questionNumber[currentQuestion].choices[1];;
     questList.appendChild(questChoice1);
-    questChoice2.textContent = questionNumber[i].choices[2];;
+    questChoice2.textContent = questionNumber[currentQuestion].choices[2];;
     questList.appendChild(questChoice2);
-    questChoice3.textContent = questionNumber[i].choices[3];;
+    questChoice3.textContent = questionNumber[currentQuestion].choices[3];;
     questList.appendChild(questChoice3);
     // guessListener = document.querySelector(".choices");
     // guessListener.addEventListener("click", checkGuess);
 }
-}
+
