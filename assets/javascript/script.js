@@ -54,10 +54,10 @@ function startQuiz() {
 
     // populate choices as li 
     questList.setAttribute("class", "possAnswers");
-    questChoice0.setAttribute("class", "guess0");
-    questChoice1.setAttribute("class", "guess1");
-    questChoice2.setAttribute("class", "guess2");
-    questChoice3.setAttribute("class", "guess3");
+    questChoice0.setAttribute("class", "guess0 guessRow");
+    questChoice1.setAttribute("class", "guess1 guessRow");
+    questChoice2.setAttribute("class", "guess2 guessRow");
+    questChoice3.setAttribute("class", "guess3 guessRow");
     inputSection.appendChild(questList);
     questChoice0.textContent = questionArray[questionNumber].choices[0];;
     questList.appendChild(questChoice0);
@@ -130,7 +130,8 @@ function finalScore() {
                 var hsSubmitButton = document.querySelector(".initialSubmit");
                 hsSubmitButton.addEventListener("click", logHighScores);
             } else {
-                inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p>  <button class="playAgain">play Again?</button><button class="seeHS">See High Scores</button>';
+                inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p>' ;
+                feedbackSection.innerHTML =  '<button class="playAgain">play Again?</button><button class="seeHS">See High Scores</button>';
                 let startAgain = document.querySelector(".playAgain");
                 startAgain.addEventListener("click", startOver);
                 let seeHS = document.querySelector(".seeHS");
@@ -188,7 +189,7 @@ function logHighScores() {
 }
 
 function showHighScores() {
-    mainText.textContent = "High Scores";
+    mainText.innerHTML = "<h2 class='highScoreHeader'>High Scores</h2>";
     //get high scores from local storage
     var latestScores = JSON.parse(localStorage.getItem("highScores"));
     inputSection.textContent = "";
@@ -197,7 +198,8 @@ function showHighScores() {
     // To get for loop to work with multiple children, must define create element in each loop
     for (let i = 0; i < latestScores.length; i++) {
         console.log(i);
-        var hsPara = document.createElement("p")
+        var hsPara = document.createElement("p");
+        hsPara.setAttribute("class", "highScoreRows")
         hsPara.innerText = latestScores[i][0] + ' - ' + latestScores[i][1];
         inputSection.appendChild(hsPara);
     };

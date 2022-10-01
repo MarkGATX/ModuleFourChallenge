@@ -73,6 +73,7 @@ p {
     width:20%;
     padding:30px 0 0 0 ;
     text-align: left;
+    min-height:60vh;
 
 }
 
@@ -80,6 +81,7 @@ p {
     width:20%;
     padding:30px 0 0 0 ;
     text-align: right;
+    min-height:60vh;
 
 }
 
@@ -90,15 +92,53 @@ p {
     border-bottom:10px solid var(--darkBackground);
     padding:30px 10px 0 10px ;
     min-height:60vh;
+    
 
 }
 
 /* classes */
 .choices {
-    background-color: bisque;
+
+    margin:0 20px;
+    
 }
+
+.choices .highScoreRows:nth-child(odd) {
+    background-color:var(--lightText);
+    color:var(--lightBackground);
+    padding:10px;
+}
+
+.choices .highScoreRows:nth-child(even) {
+    background-color:var(--lightBackground);
+    color:var(--darkText);
+    padding:10px;
+}
+
+.guessRow {
+    background-color: var(--darkBackground);
+    color:var(--lightBackground);
+    padding:10px;
+    font-weight:bold;
+    cursor: pointer;
+}
+
+.guessRow:active {
+    box-shadow: inset 5px 5px var(--darkText);
+    color:var(--lightText);
+    /* padding:10px;
+    font-weight:bold;
+    cursor: pointer; */
+}
+
+.highScoreHeader {
+    border-bottom:5px solid var(--darkText);
+    padding-bottom:15px;
+}
+
 .results {
-    background-color: darkgray;
+  
+    height:20%;
 }
 
 /* Media queries */
