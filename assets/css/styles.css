@@ -74,6 +74,7 @@ p {
     padding:30px 0 0 0 ;
     text-align: left;
     min-height:60vh;
+    cursor: pointer;
 
 }
 
@@ -137,8 +138,11 @@ p {
 }
 
 .results {
-  
+    border-top: 2px solid var(--darkBackground);
     height:20%;
+    font-weight:bold;
+    font-size:1.5em;
+    font-style:italic;
 }
 
 /* Media queries */

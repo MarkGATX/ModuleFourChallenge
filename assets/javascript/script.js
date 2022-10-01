@@ -37,8 +37,8 @@ let questionsObject = {
 questionArray = Object.values(questionsObject);
 
 
-// Set event listener to High Scores button -- need to make function
-// seeHighScores.addEventListener("click", showHighScores);
+//Set event listener to High Scores button -- need to make function
+seeHighScores.addEventListener("click", showHighScores);
 
 // Set the start button
 start.addEventListener("click", startQuiz);
@@ -51,7 +51,8 @@ function startQuiz() {
     console.log(questionArray[questionNumber]["question"])
     //Replace main text with question
     mainText.innerHTML = '<h2>' + questionArray[questionNumber]["question"] + '<h2>';
-
+    //clear response text
+    feedbackSection.innerHTML = "";
     // populate choices as li 
     questList.setAttribute("class", "possAnswers");
     questChoice0.setAttribute("class", "guess0 guessRow");
@@ -85,19 +86,35 @@ function checkGuess(event) {
         console.log(questionNumber);
         feedbackSection.textContent = "Correct!";
         score += 5;
+        //set timer before loop
+        // var pauseSeconds = 5;
+
+        // var pauseTime = setInterval(function() {
+        //     console.log('pause seconds = ' +pauseSeconds);
+            
+        //     if (pauseSeconds === 0) {
+        //         clearInterval(pauseTime);
+        //     };
+        //     pauseSeconds--;
+        // }, 1000);
+        // setTimeout(function() {
+        //     console.log('pause');
+        // }, 3000);
     } else {
         questionNumber++;
         feedbackSection.textContent = "Wrong!";
     }
+
     if (questionNumber === questionArray.length) {
-        finalScore();
+        setTimeout(finalScore, 1000);
     } else {
-        startQuiz();
-    }
+        setTimeout(startQuiz, 1000);
+    };
 }
 
 function finalScore() {
     console.log("end of question array");
+    feedbackSection.innerHTML = "";
     //show end of game
     mainText.textContent = "Finished!";
     inputSection.textContent = "Your final score is: " + score;
