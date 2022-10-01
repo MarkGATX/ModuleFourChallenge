@@ -3,7 +3,7 @@ let questionNumber = 0;
 // set global variable of score
 let score = 0
 // set up highscore array for local storage
-scoresArray = [];
+scoresArray = [[0,0]];
 // Define variables for DOM manipulation
 let highScores = document.querySelector("#highScores");
 let mainText = document.querySelector(".main");
@@ -134,19 +134,35 @@ function finalScore() {
 }
 
 function logHighScores() {
-    console.log('clicked');
+    console.log(score);
     hsInitials = document.querySelector(".initials").value;
     console.log(hsInitials);
     var latestScores = JSON.parse(localStorage.getItem("highScores"));
-    console.log(latestScores);
+    console.log(latestScores.length);
     highScoresLength = latestScores.length;
-        for (i = 0; i < highScoresLength; i++) {
-            if (score > latestScores[i][1]) {
-                latestScores[i] = [hsInitials, score];
+    //find location in high scores array for latest high score
+    for (i = 0; i < highScoresLength; i++) {
+        console.log(latestScores[i][1]);
+        if (score >= latestScores[i][1]) {
+            if (i === 0) {
+                latestScores.unshift([hsInitials, score]);
+                if (latestScores > 10) {
+                    latestScores.pop();
+                }
+            } else if (i === 10) {
+                latestScores.pop();
+                latestScores.push([hsInitials, score]);
+            } else {
+
+                latestScores.splice(i, 0, [hsInitials, score]);
                 if (latestScores.length > 10) {
                     latestScores.pop();
                 }
-                localStorage.setItem("highScores", JSON.stringify(latestScores));
             }
+            
         }
+    }
+    //save new high scores
+    console.log(latestScores);
+    localStorage.setItem("highScores", JSON.stringify(latestScores));
 }
