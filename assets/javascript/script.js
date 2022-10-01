@@ -17,9 +17,7 @@ let questChoice0 = document.createElement("li");
 let questChoice1 = document.createElement("li");
 let questChoice2 = document.createElement("li");
 let questChoice3 = document.createElement("li");
-// let hsTable = document.createElement("table");
-// let hsRow = document.createElement("tr");
-// let hsPara = document.createElement("p");
+
 // Define questions for quiz
 let questionsObject = {
     question0: {
@@ -31,6 +29,46 @@ let questionsObject = {
         question: "What is the CSS attribute that changes text color?",
         choices: ["color", "font", "background", "border"],
         answer: "color"
+    }, 
+    question2: {
+        question: "What command can you use to cause a funtion to fire after waiting a set amount of time?",
+        choices: ["setInterval();", "addEventListener();", "createElement();", "setAttribute();"],
+        answer: "setInterval();"
+    },
+    question3: {
+        question: "What CSS attribute changes the space between an element's content and its border?",
+        choices: ["padding", "margin", "width", "display"],
+        answer: "padding"
+    },
+    question4: {
+        question: "Where can you store local data from your page to use between user sessions?",
+        choices: ["local storage", "console", "ILE", "Google"],
+        answer: "local storage"
+    },
+    question5: {
+        question: "What are the 6-character codes used to describe colors called?",
+        choices: ["HEX codes", "RGB", "HSL", "RGBa"],
+        answer: "HEX codes"
+    },
+    question6: {
+        question: "How many numbers make up an RGB color code?",
+        choices: ["three", "six", "four", "one"],
+        answer: "three"
+    },
+    question7: {
+        question: "What is it called with a javascript event causes events in its parent element to fire?",
+        choices: ["bubbling", "trickling", "problems", "inheritance"],
+        answer: "bubbling"
+    },
+    question8: {
+        question: "What does HTML stand for?",
+        choices: ["Hyper Text Markup Language", "Hostile Texting Makes Lunch", "Holistic Tech Machine Language", "Harry Took Many Lemons"],
+        answer: "Hyper Text Markup Language"
+    },
+    question9: {
+        question: "What event does the browser register when typing on your keyboard?",
+        choices: ["keypress", "hover", "click", "onMouseOver"],
+        answer: "keypress"
     }
 };
 //convert questions from object to array
@@ -240,6 +278,7 @@ function startOver() {
 
 function pauseQuiz() {
     var secondsLeft = 2;
+    //how use settimeout?
     // stop listening for clicks on rows. clicking during timer causes errors
     document.querySelector(".guess0").removeEventListener("click", checkGuess);
     document.querySelector(".guess1").removeEventListener("click", checkGuess);
