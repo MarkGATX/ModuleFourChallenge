@@ -1,0 +1,12 @@
+main {
+    background-color: antiquewhite;
+}
+.choices {
+    background-color: bisque;
+}
+.results {
+    background-color: darkgray;
+}
+#highScores {
+    background-color:blue;
+}

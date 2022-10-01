@@ -3,9 +3,9 @@ let questionNumber = 0;
 // set global variable of score
 let score = 0
 // set up highscore array for local storage
-scoresArray = [[0,0]];
+scoresArray = [[0, 0]];
 // Define variables for DOM manipulation
-let highScores = document.querySelector("#highScores");
+
 let mainText = document.querySelector(".main");
 let inputSection = document.querySelector(".choices");
 let feedbackSection = document.querySelector(".results");
@@ -17,6 +17,9 @@ let questChoice0 = document.createElement("li");
 let questChoice1 = document.createElement("li");
 let questChoice2 = document.createElement("li");
 let questChoice3 = document.createElement("li");
+// let hsTable = document.createElement("table");
+// let hsRow = document.createElement("tr");
+// let hsPara = document.createElement("p");
 // Define questions for quiz
 let questionsObject = {
     question0: {
@@ -42,6 +45,7 @@ start.addEventListener("click", startQuiz);
 
 // The quiz function itself
 function startQuiz() {
+    
     console.log(questionNumber);
     console.log(questionArray);
     console.log(questionArray[questionNumber]["question"])
@@ -103,8 +107,9 @@ function finalScore() {
     //initialize scores variable if doesn't already exist in local storage
     if (latestScores === null) {
         latestScores = scoresArray;
-        localStorage.setItem("highScores", JSON.stringify(latestScores))
+        localStorage.setItem("highScores", JSON.stringify(latestScores));
         console.log(latestScores);
+        console.log(latestScores.length);
         //print results to screen
         inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p> <h2>New High Score!</h2><label for="initials">Enter your initials:</label> <input type="text" name="initials" class="initials"></input><button class="initialSubmit">Submit</button>';
         //add event listener for button
@@ -113,25 +118,29 @@ function finalScore() {
         console.log(hsSubmitButton);
     } else {
         //check to see if top ten scores
+        var latestScores = JSON.parse(localStorage.getItem("highScores"));
+        console.log(latestScores.length);
         highScoresLength = latestScores.length;
+        console.log(highScoresLength);
         for (i = 0; i < highScoresLength; i++) {
-            if (score < latestScores[i][1]) {
-                if (highScoresLength === 10) {
-                    inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p>  <button class="playAgain">playAgain?</button>';
-                    let startAgain = document.querySelector(".playAgain");
-                    startAgain.addEventListener("click", startQuiz);
-                    return;
-                } else {
-                    inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p> <h2>New High Score!</h2><label for="initials">Enter your initials:</label> <input type="text" name="initials" class="initials"></input><button class="initialSubmit">Submit</button>';
-                    //add event listener for button
-                    var hsSubmitButton = document.querySelector(".initialSubmit");
-                    hsSubmitButton.addEventListener("click", logHighScores);
-                }
+            console.log(latestScores[i][1]);
+            if (score >= latestScores[i][1]) {
+                inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p> <h2>New High Score!</h2><label for="initials">Enter your initials:</label> <input type="text" name="initials" class="initials"></input><button class="initialSubmit">Submit</button>';
+                //add event listener for button
+                var hsSubmitButton = document.querySelector(".initialSubmit");
+                hsSubmitButton.addEventListener("click", logHighScores);
+            } else {
+                inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p>  <button class="playAgain">play Again?</button><button class="seeHS">See High Scores</button>';
+                let startAgain = document.querySelector(".playAgain");
+                startAgain.addEventListener("click", startOver);
+                let seeHS = document.querySelector(".seeHS");
+                seeHS.addEventListener("click", showHighScores);
             }
         }
-
     }
+
 }
+
 
 function logHighScores() {
     console.log(score);
@@ -139,30 +148,72 @@ function logHighScores() {
     console.log(hsInitials);
     var latestScores = JSON.parse(localStorage.getItem("highScores"));
     console.log(latestScores.length);
+    //Make sure no more than 10 entries in latest scores
+    if (latestScores > 10) {
+        latestScores.pop();
+    }
     highScoresLength = latestScores.length;
     //find location in high scores array for latest high score
     for (i = 0; i < highScoresLength; i++) {
         console.log(latestScores[i][1]);
         if (score >= latestScores[i][1]) {
             if (i === 0) {
+                //add new score to beginning, then add to i to stop loop
                 latestScores.unshift([hsInitials, score]);
-                if (latestScores > 10) {
+                i = i + highScoresLength;
+                //double check if latest score only has 10 items
+                if (latestScores.length > 10) {
                     latestScores.pop();
+
                 }
             } else if (i === 10) {
+                // if at the end of the array, remove the last item and add the new data
                 latestScores.pop();
                 latestScores.push([hsInitials, score]);
             } else {
-
+                // add new data in the current index
                 latestScores.splice(i, 0, [hsInitials, score]);
+                //if latestscore is now > 10, remove the last element
                 if (latestScores.length > 10) {
                     latestScores.pop();
                 }
             }
-            
+
         }
     }
     //save new high scores
     console.log(latestScores);
     localStorage.setItem("highScores", JSON.stringify(latestScores));
+    showHighScores();
+}
+
+function showHighScores() {
+    mainText.textContent = "High Scores";
+    //get high scores from local storage
+    var latestScores = JSON.parse(localStorage.getItem("highScores"));
+    inputSection.textContent = "";
+
+    console.log(latestScores.length);
+    // To get for loop to work with multiple children, must define create element in each loop
+    for (let i = 0; i < latestScores.length; i++) {
+        console.log(i);
+        var hsPara = document.createElement("p")
+        hsPara.innerText = latestScores[i][0] + ' - ' + latestScores[i][1];
+        inputSection.appendChild(hsPara);
+    };
+    feedbackSection.innerHTML = '<button class="playAgain">play Again?</button><button class="clearHS">Clear High Scores?</button>';
+    let playAgain = document.querySelector(".playAgain");
+    playAgain.addEventListener("click", startOver);
+    let clearHS = document.querySelector(".clearHS");
+    clearHS.addEventListener("click", clearHighScores);
+}
+
+function clearHighScores() {
+    latestScores = scoresArray;
+    localStorage.setItem("highScores", JSON.stringify(latestScores));
+    showHighScores();
+}
+
+function startOver() {
+    location.reload();
 }
