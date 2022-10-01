@@ -61,8 +61,7 @@ function startQuiz() {
     questChoice3.textContent = questionArray[questionNumber].choices[3];;
     questList.appendChild(questChoice3);
     //Add event listener for clicks on li choices
-    // guessListener = document.getElementsByClassName("guess");
-    // console.log(guessListener);
+    // Do I need to do this on every run of startQuiz?
     document.querySelector(".guess0").addEventListener("click", checkGuess);
     document.querySelector(".guess1").addEventListener("click", checkGuess);
     document.querySelector(".guess2").addEventListener("click", checkGuess);
