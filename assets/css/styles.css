@@ -115,6 +115,9 @@ p {
     color:var(--darkText);
     padding:10px;
 }
+.correct {
+    background-color:green;
+}
 
 .guessRow {
     background-color: var(--darkBackground);
@@ -146,6 +149,14 @@ p {
     font-style:italic;
     padding-top:30px;
     margin-top:50px;
+}
+
+.correct {
+    background-color:green;
+}
+
+.incorrect {
+    background-color:red;
 }
 
 /* Media queries */

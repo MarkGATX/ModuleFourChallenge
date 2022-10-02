@@ -75,33 +75,20 @@ let questionsObject = {
 questionArray = Object.values(questionsObject);
 //shuffle questions array
 for (let i = questionArray.length - 1; i > 0; i--) {
-    // console.log(i);
     const j = Math.floor(Math.random() * (i + 1));
-    // console.log(j);
-    // console.log(array);
-    // console.log([array[i], array[j]]);
-    // console.log([array[j], array[i]]);
     [questionArray[i], questionArray[j]] = [questionArray[j], questionArray[i]];
-    // console.log([array[i], array[j]]);
-    // console.log([array[j], array[i]]);
+
 };
-console.log(questionArray);
+
 
 //shuffle answers to questions
 for (let q = 0; q < questionArray.length; q++) {
     for (let i = questionArray[q].choices.length - 1; i > 0; i--) {
         // console.log(i);
         const j = Math.floor(Math.random() * (i + 1));
-        // console.log(j);
-        // console.log(array);
-        // console.log([array[i], array[j]]);
-        // console.log([array[j], array[i]]);
         [questionArray[q].choices[i], questionArray[q].choices[j]] = [questionArray[q].choices[j], questionArray[q].choices[i]];
-        // console.log([array[i], array[j]]);
-        // console.log([array[j], array[i]]);
     };   
 }
-console.log(questionArray);
 
 
 
@@ -113,7 +100,6 @@ start.addEventListener("click", startQuiz);
 
 // The quiz function itself
 function startQuiz() {
-
     console.log(questionNumber);
     console.log(questionArray);
     console.log(questionArray[questionNumber]["question"])
@@ -148,29 +134,20 @@ function startQuiz() {
 function checkGuess(event) {
     //returns text value of click event
     console.log(event.path[0].textContent);
+    console.log(event.path);
     console.log(questionArray[questionNumber]["answer"]);
     if (event.path[0].textContent === questionArray[questionNumber]["answer"]) {
         questionNumber++;
+        console.log(event.path[0]);
+        event.path[0].classList.add("correct");
         console.log(questionNumber);
         feedbackSection.textContent = "Correct!";
         score += 5;
-        //set timer before loop
-        // var pauseSeconds = 5;
-
-        // var pauseTime = setInterval(function() {
-        //     console.log('pause seconds = ' +pauseSeconds);
-
-        //     if (pauseSeconds === 0) {
-        //         clearInterval(pauseTime);
-        //     };
-        //     pauseSeconds--;
-        // }, 1000);
-        // setTimeout(function() {
-        //     console.log('pause');
-        // }, 3000);
+        
     } else {
         questionNumber++;
         feedbackSection.textContent = "Wrong!";
+        event.path[0].classList.add("incorrect");
     }
 
     if (questionNumber === questionArray.length) {
@@ -263,7 +240,7 @@ function logHighScores() {
                 console.log(latestScores[i]);
                 latestScores.splice(i, 0, [hsInitials, score]);
                 console.log('current score array: ' + latestScores);
-                //force for loop to close
+                //force for loop to close4
                 i = i + 10;
                 //if latestscore is now > 10, remove the last element
                 if (latestScores.length > 10) {
