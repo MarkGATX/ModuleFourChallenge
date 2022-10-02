@@ -29,7 +29,7 @@ let questionsObject = {
         question: "What is the CSS attribute that changes text color?",
         choices: ["color", "font", "background", "border"],
         answer: "color"
-    }, 
+    },
     question2: {
         question: "What command can you use to cause a funtion to fire after waiting a set amount of time?",
         choices: ["setInterval();", "addEventListener();", "createElement();", "setAttribute();"],
@@ -74,20 +74,35 @@ let questionsObject = {
 //convert questions from object to array
 questionArray = Object.values(questionsObject);
 //shuffle questions array
+for (let i = questionArray.length - 1; i > 0; i--) {
+    // console.log(i);
+    const j = Math.floor(Math.random() * (i + 1));
+    // console.log(j);
+    // console.log(array);
+    // console.log([array[i], array[j]]);
+    // console.log([array[j], array[i]]);
+    [questionArray[i], questionArray[j]] = [questionArray[j], questionArray[i]];
+    // console.log([array[i], array[j]]);
+    // console.log([array[j], array[i]]);
+};
+console.log(questionArray);
 
-        for (let i = questionArray.length - 1; i > 0; i--) {
-            // console.log(i);
-            const j = Math.floor(Math.random() * (i + 1));
-            // console.log(j);
-            // console.log(array);
-            // console.log([array[i], array[j]]);
-            // console.log([array[j], array[i]]);
-            [questionArray[i], questionArray[j]] = [questionArray[j], questionArray[i]];
-            // console.log([array[i], array[j]]);
-            // console.log([array[j], array[i]]);
-        };
-        console.log(questionArray);
-    
+//shuffle answers to questions
+for (let q = 0; q < questionArray.length; q++) {
+    for (let i = questionArray[q].choices.length - 1; i > 0; i--) {
+        // console.log(i);
+        const j = Math.floor(Math.random() * (i + 1));
+        // console.log(j);
+        // console.log(array);
+        // console.log([array[i], array[j]]);
+        // console.log([array[j], array[i]]);
+        [questionArray[q].choices[i], questionArray[q].choices[j]] = [questionArray[q].choices[j], questionArray[q].choices[i]];
+        // console.log([array[i], array[j]]);
+        // console.log([array[j], array[i]]);
+    };   
+}
+console.log(questionArray);
+
 
 
 //Set event listener to High Scores button -- need to make function
