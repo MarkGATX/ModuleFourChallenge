@@ -297,6 +297,10 @@ function logHighScores() {
 }
 
 function showHighScores() {
+    if (secondsLeft < questionArray.length * 15) {
+        clearInterval(timerInterval);
+        timeLeft.textContent = "";
+    }
     mainText.innerHTML = "<h2 class='highScoreHeader'>High Scores</h2>";
     //get high scores from local storage
     var latestScores = JSON.parse(localStorage.getItem("highScores"));

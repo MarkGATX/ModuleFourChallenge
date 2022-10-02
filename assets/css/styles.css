@@ -18,7 +18,7 @@ body {
 }
 
 button {
-    padding: 20px;
+    padding: 15px;
     font-weight: bold;
     background-color: var(--darkBackground);
     color: var(--lightText);
@@ -93,7 +93,8 @@ p {
     border-bottom: 10px solid var(--darkBackground);
     padding: 30px 10px 0 10px;
     min-height: 60vh;
-    transiiton: all .3s;
+    transiton: all .3s;
+    border-radius:0 0 10px 10px;
 }
 
 /* classes */
@@ -124,6 +125,8 @@ p {
     font-weight: bold;
     cursor: pointer;
     width: 60%;
+    border-radius: 10px;
+    box-shadow: inset 5px 5px var(--lightTransparent);
 }
 
 .guessRow:active {
@@ -151,10 +154,12 @@ p {
 
 .correct {
     background-color: green;
+    box-shadow: inset 5px 5px rgba(0,0,0, .5);
 }
 
 .incorrect {
     background-color: red;
+    box-shadow: inset 5px 5px rgba(0,0,0, .5);
 }
 
 .timeLeft {
