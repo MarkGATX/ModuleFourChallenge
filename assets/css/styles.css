@@ -24,7 +24,7 @@ button {
     color: var(--lightText);
     border-radius: 10px;
     margin: 20px;
-    box-shadow: inset 5px 5px var(--lightTransparent);
+    box-shadow: inset 5px 5px var(--lightTransparent), inset -5px -5px var(--darkText);
 }
 
 button:active {
@@ -132,7 +132,7 @@ p {
     cursor: pointer;
     width: 60%;
     border-radius: 10px;
-    box-shadow: inset 5px 5px var(--lightTransparent);
+    box-shadow: inset 5px 5px var(--lightTransparent), inset -5px -5px var(--darkText);
 }
 
 .guessRow:active {
