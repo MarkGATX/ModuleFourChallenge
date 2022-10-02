@@ -259,7 +259,12 @@ function logHighScores() {
                 latestScores.push([hsInitials, score]);
             } else {
                 // add new data in the current index
+                console.log(i);
+                console.log(latestScores[i]);
                 latestScores.splice(i, 0, [hsInitials, score]);
+                console.log('current score array: ' + latestScores);
+                //force for loop to close
+                i = i + 10;
                 //if latestscore is now > 10, remove the last element
                 if (latestScores.length > 10) {
                     latestScores.pop();
@@ -308,7 +313,7 @@ function startOver() {
 
 function pauseQuiz() {
     var secondsLeft = 2;
-    //how use settimeout?
+    //how use settimeout? Change to set timeout for more accurate times?
     // stop listening for clicks on rows. clicking during timer causes errors
     document.querySelector(".guess0").removeEventListener("click", checkGuess);
     document.querySelector(".guess1").removeEventListener("click", checkGuess);
