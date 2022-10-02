@@ -99,7 +99,7 @@ p {
     border-bottom: 10px solid var(--darkBackground);
     padding: 30px 10px 0 10px;
     min-height: 60vh;
-    transiton: all .3s;
+    transition: all .3s;
     border-radius:0 0 10px 10px;
 }
 
