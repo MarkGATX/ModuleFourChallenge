@@ -137,38 +137,55 @@ function startTimer() {
 function startQuiz() {
     //Replace main text with question
     mainText.innerHTML = '<h2>' + questionArray[questionNumber]["question"] + '<h2>';
-    //clear response text
+    //clear choices and response text
     feedbackSection.innerHTML = "";
-    // populate choices as li -- refactor as for loop like with showHighScores. Requires define each element variable in the loop
-    questList.setAttribute("class", "possAnswers");
-    questChoice0.setAttribute("class", "guess0 guessRow");
-    questChoice1.setAttribute("class", "guess1 guessRow");
-    questChoice2.setAttribute("class", "guess2 guessRow");
-    questChoice3.setAttribute("class", "guess3 guessRow");
-    inputSection.appendChild(questList);
-    questChoice0.textContent = questionArray[questionNumber].choices[0];;
-    questList.appendChild(questChoice0);
-    questChoice1.textContent = questionArray[questionNumber].choices[1];;
-    questList.appendChild(questChoice1);
-    questChoice2.textContent = questionArray[questionNumber].choices[2];;
-    questList.appendChild(questChoice2);
-    questChoice3.textContent = questionArray[questionNumber].choices[3];;
-    questList.appendChild(questChoice3);
-    //Add event listener for clicks on li choices
-    // Do I need to do this on every run of startQuiz
-    document.querySelector(".guess0").addEventListener("click", checkGuess);
-    document.querySelector(".guess1").addEventListener("click", checkGuess);
-    document.querySelector(".guess2").addEventListener("click", checkGuess);
-    document.querySelector(".guess3").addEventListener("click", checkGuess);
+    inputSection.innerHTML = " ";
+    //populate choices as li -- refactor as for loop like with showHighScores. Requires define each element variable in the loop
+    // questList.setAttribute("class", "possAnswers");
+    // questChoice0.setAttribute("class", "guess0 guessRow");
+    // questChoice1.setAttribute("class", "guess1 guessRow");
+    // questChoice2.setAttribute("class", "guess2 guessRow");
+    // questChoice3.setAttribute("class", "guess3 guessRow");
+    // inputSection.appendChild(questList);
+    // questChoice0.textContent = questionArray[questionNumber].choices[0];;
+    // questList.appendChild(questChoice0);
+    // questChoice1.textContent = questionArray[questionNumber].choices[1];;
+    // questList.appendChild(questChoice1);
+    // questChoice2.textContent = questionArray[questionNumber].choices[2];;
+    // questList.appendChild(questChoice2);
+    // questChoice3.textContent = questionArray[questionNumber].choices[3];;
+    // questList.appendChild(questChoice3);
+    // //Add event listener for clicks on li choices
+    // // Do I need to do this on every run of startQuiz
+    // document.querySelector(".guess0").addEventListener("click", checkGuess);
+    // document.querySelector(".guess1").addEventListener("click", checkGuess);
+    // document.querySelector(".guess2").addEventListener("click", checkGuess);
+    // document.querySelector(".guess3").addEventListener("click", checkGuess);
+    // return;
+    //Refactor to use for loop
+    let questListLoop = document.createElement("ul");
+    questListLoop.setAttribute("class", "possAnswers");
+    inputSection.appendChild(questListLoop);
+    for (let i = 0; i < questionArray[questionNumber].choices.length; i++) {
+        let questChoiceLoop = document.createElement("li");
+        questChoiceLoop.setAttribute("class", "guess" + i + " guessRow");
+        questChoiceLoop.textContent = questionArray[questionNumber].choices[i];
+        questListLoop.appendChild(questChoiceLoop);
+        document.querySelector(".guess" + i).addEventListener("click", checkGuess);
+    };
     return;
 }
 
 function checkGuess(event) {
     // stop listening for clicks on rows. clicking during timer causes errors
-    document.querySelector(".guess0").removeEventListener("click", checkGuess);
-    document.querySelector(".guess1").removeEventListener("click", checkGuess);
-    document.querySelector(".guess2").removeEventListener("click", checkGuess);
-    document.querySelector(".guess3").removeEventListener("click", checkGuess);
+    // document.querySelector(".guess0").removeEventListener("click", checkGuess);
+    // document.querySelector(".guess1").removeEventListener("click", checkGuess);
+    // document.querySelector(".guess2").removeEventListener("click", checkGuess);
+    // document.querySelector(".guess3").removeEventListener("click", checkGuess);
+    // Refactor to use for loop
+    for (let i = 0; i < questionArray[questionNumber].choices.length; i++) {
+        document.querySelector(".guess" +i).removeEventListener("click", checkGuess);
+    };
     //returns text value of click event
     if (event.path[0].textContent === questionArray[questionNumber]["answer"]) {
         questionNumber++;
