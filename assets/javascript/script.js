@@ -73,6 +73,21 @@ let questionsObject = {
 };
 //convert questions from object to array
 questionArray = Object.values(questionsObject);
+//shuffle questions array
+
+        for (let i = questionArray.length - 1; i > 0; i--) {
+            // console.log(i);
+            const j = Math.floor(Math.random() * (i + 1));
+            // console.log(j);
+            // console.log(array);
+            // console.log([array[i], array[j]]);
+            // console.log([array[j], array[i]]);
+            [questionArray[i], questionArray[j]] = [questionArray[j], questionArray[i]];
+            // console.log([array[i], array[j]]);
+            // console.log([array[j], array[i]]);
+        };
+        console.log(questionArray);
+    
 
 
 //Set event listener to High Scores button -- need to make function
