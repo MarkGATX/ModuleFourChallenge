@@ -8,7 +8,7 @@ ___
 
 This project was assigned at the end of our first two weeks in camp and is meant to test all the concepts we've learned so far. That includes javascript, web APIs, CSS, and HTML. The goal is to present a page that will let the user take a timed quiz and return a score at the end of the test that will persist in a log of high scores. 
 
-I checked all the boxes on the Acceptance Criteria and then added a few more details like interactive CSS elements that are styled through javascript and CSS as well as toggling on and off event listeners to avoid unintended behaviors to name a couple. But first we should talk about how to use the app.
+I checked all the boxes on the Acceptance Criteria and then added a few more details like interactive CSS elements that are styled through javascript and CSS as well as randomizing the questions and answer choices to name a couple. But first we should talk about how to use the app.
 
 
 
