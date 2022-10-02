@@ -114,12 +114,16 @@ function startTimer() {
     // //set new listener to give feedback on why it won't work now
     // seeHighScores.addEventListener("click", dontShowHighScores);
     timerInterval = setInterval(function () {
-        timeLeft.innerText = secondsLeft;
+        if (secondsLeft <= 0) {
+            timeLeft.innerText = 0;
+        } else {
+                timeLeft.innerText = secondsLeft;
+            };
         if (secondsLeft < 25) {
             timeLeft.classList.add("red");
         };
         secondsLeft--;
-        if (secondsLeft === 0) {
+        if (secondsLeft <= 0) {
             // Stops execution of action at set interval
             clearInterval(timerInterval);
             // Calls function to create and append image
@@ -168,9 +172,7 @@ function checkGuess(event) {
     //returns text value of click event
     if (event.path[0].textContent === questionArray[questionNumber]["answer"]) {
         questionNumber++;
-        console.log(event.path[0]);
         event.path[0].classList.add("correct");
-        console.log(questionNumber);
         feedbackSection.textContent = "Correct!";
         score += 5;
     } else {
@@ -187,7 +189,11 @@ function checkGuess(event) {
         setTimeout(finalScore, 1500);
     } else {
         // pauseQuiz();
+        if (secondsLeft <= 0) {
+            return;
+        } else {
         setTimeout(startQuiz, 1500);
+        }
     };
 }
 

@@ -170,16 +170,32 @@ p {
     main {
         margin: 0 10px;
         justify-content: space-around;
+        
     }
 
     #questContainer {
         border-left: 5px solid var(--darkBackground);
         border-right: 5px solid var(--darkBackground);
         border-bottom: 5px solid var(--darkBackground);
+        display:flex;
+        flex-direction:column;
+        justify-content: space-around;
     }
 
     #highScores h2 {
         font-size:1.2em;
     }
-    
+
+    .mainTextBox {
+        height:40%;
+    }
+
+    .choices {
+        height:40%;
+    }
+
+    .results {
+        height:18%;
+    }
+
 }
