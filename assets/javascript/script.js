@@ -109,10 +109,10 @@ start.addEventListener("click", startTimer);
 
 //The test timer function --- variable declared without var, let, or const is automatically global?!?!?
 function startTimer() {  
-    //stop high score click element to keep user from interrupting test
-    seeHighScores.removeEventListener("click", showHighScores);  
-    //set new listener to give feedback on why it won't work now
-    seeHighScores.addEventListener("click", dontShowHighScores);
+    // //stop high score click element to keep user from interrupting test
+    // seeHighScores.removeEventListener("click", showHighScores);  
+    // //set new listener to give feedback on why it won't work now
+    // seeHighScores.addEventListener("click", dontShowHighScores);
     timerInterval = setInterval(function () {
         timeLeft.innerText = secondsLeft;
         if (secondsLeft < 25) {
@@ -135,7 +135,7 @@ function startQuiz() {
     mainText.innerHTML = '<h2>' + questionArray[questionNumber]["question"] + '<h2>';
     //clear response text
     feedbackSection.innerHTML = "";
-    // populate choices as li 
+    // populate choices as li -- refactor as for loop like with showHighScores. Requires define each element variable in the loop
     questList.setAttribute("class", "possAnswers");
     questChoice0.setAttribute("class", "guess0 guessRow");
     questChoice1.setAttribute("class", "guess1 guessRow");
@@ -303,7 +303,7 @@ function startOver() {
 }
 
 
-function dontShowHighScores() {
-    seeHighScores.innerHTML = "<h2>You're in the middle of a quiz! Don't try to look at scores!</h2>"
+// function dontShowHighScores() {
+//     seeHighScores.innerHTML = "<h2>You're in the middle of a quiz! Don't try to look at scores!</h2>"
     
-};
+// };
