@@ -229,7 +229,7 @@ function finalScore() {
         latestScores = scoresArray;
         localStorage.setItem("highScores", JSON.stringify(latestScores));
         //print results to screen
-        inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p> <h2>New High Score!</h2><label for="initials">Enter your initials:</label> <input type="text" name="initials" class="initials"></input><button class="initialSubmit">Submit</button>';
+        inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p> <h2>New High Score!</h2><label for="initials">Enter your initials:</label> <input type="text" name="initials" class="initials" maxlength="15"></input><button class="initialSubmit">Submit</button>';
         //add event listener for button
         var hsSubmitButton = document.querySelector(".initialSubmit");
         hsSubmitButton.addEventListener("click", logHighScores);
@@ -239,7 +239,7 @@ function finalScore() {
         highScoresLength = latestScores.length;
         for (i = 0; i < highScoresLength; i++) {
             if (score >= latestScores[i][1]) {
-                inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p> <h2>New High Score!</h2><label for="initials">Enter your initials:</label> <input type="text" name="initials" class="initials"></input><button class="initialSubmit">Submit</button>';
+                inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p> <h2>New High Score!</h2><label for="initials">Enter your initials:</label> <input type="text" name="initials" class="initials" maxlength="15"></input><button class="initialSubmit">Submit</button>';
                 //add event listener for button
                 var hsSubmitButton = document.querySelector(".initialSubmit");
                 hsSubmitButton.addEventListener("click", logHighScores);
