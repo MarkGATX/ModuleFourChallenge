@@ -17,6 +17,8 @@ let questChoice0 = document.createElement("li");
 let questChoice1 = document.createElement("li");
 let questChoice2 = document.createElement("li");
 let questChoice3 = document.createElement("li");
+let timeLeft = document.querySelector(".timeLeft");
+var timerInterval;
 
 // Define questions for quiz
 let questionsObject = {
@@ -71,6 +73,8 @@ let questionsObject = {
         answer: "keypress"
     }
 };
+
+
 //convert questions from object to array
 questionArray = Object.values(questionsObject);
 //shuffle questions array
@@ -84,25 +88,49 @@ for (let i = questionArray.length - 1; i > 0; i--) {
 //shuffle answers to questions
 for (let q = 0; q < questionArray.length; q++) {
     for (let i = questionArray[q].choices.length - 1; i > 0; i--) {
-        // console.log(i);
         const j = Math.floor(Math.random() * (i + 1));
         [questionArray[q].choices[i], questionArray[q].choices[j]] = [questionArray[q].choices[j], questionArray[q].choices[i]];
-    };   
+    };
 }
 
+
+//varies the time for the test based on the number of questions: 15 seconds per question
+var secondsLeft = questionArray.length * 15;
+var secondsScore = 0;
 
 
 //Set event listener to High Scores button -- need to make function
 seeHighScores.addEventListener("click", showHighScores);
 
+
 // Set the start button
-start.addEventListener("click", startQuiz);
+start.addEventListener("click", startTimer);
+
+
+//The test timer function --- variable declared without var, let, or const is automatically global?!?!?
+function startTimer() {  
+    //stop high score click element to keep user from interrupting test
+    seeHighScores.removeEventListener("click", showHighScores);  
+    //set new listener to give feedback on why it won't work now
+    seeHighScores.addEventListener("click", dontShowHighScores);
+    timerInterval = setInterval(function () {
+        timeLeft.innerText = secondsLeft;
+        if (secondsLeft < 25) {
+            timeLeft.classList.add("red");
+        };
+        secondsLeft--;
+        if (secondsLeft === 0) {
+            // Stops execution of action at set interval
+            clearInterval(timerInterval);
+            // Calls function to create and append image
+            finalScore();
+        }
+    }, 1000);  
+    startQuiz();  
+}
 
 // The quiz function itself
 function startQuiz() {
-    console.log(questionNumber);
-    console.log(questionArray);
-    console.log(questionArray[questionNumber]["question"])
     //Replace main text with question
     mainText.innerHTML = '<h2>' + questionArray[questionNumber]["question"] + '<h2>';
     //clear response text
@@ -132,10 +160,12 @@ function startQuiz() {
 }
 
 function checkGuess(event) {
+    // stop listening for clicks on rows. clicking during timer causes errors
+    document.querySelector(".guess0").removeEventListener("click", checkGuess);
+    document.querySelector(".guess1").removeEventListener("click", checkGuess);
+    document.querySelector(".guess2").removeEventListener("click", checkGuess);
+    document.querySelector(".guess3").removeEventListener("click", checkGuess);
     //returns text value of click event
-    console.log(event.path[0].textContent);
-    console.log(event.path);
-    console.log(questionArray[questionNumber]["answer"]);
     if (event.path[0].textContent === questionArray[questionNumber]["answer"]) {
         questionNumber++;
         console.log(event.path[0]);
@@ -143,50 +173,48 @@ function checkGuess(event) {
         console.log(questionNumber);
         feedbackSection.textContent = "Correct!";
         score += 5;
-        
     } else {
         questionNumber++;
         feedbackSection.textContent = "Wrong!";
         event.path[0].classList.add("incorrect");
+        secondsLeft = secondsLeft - 15;
     }
-
     if (questionNumber === questionArray.length) {
-        pauseTimer();
-        // setTimeout(finalScore, 1000);
+        //need to stop overall timer and get seconds left
+        secondsScore = secondsLeft;
+        clearInterval(timerInterval);
+        // pauseTimer();
+        setTimeout(finalScore, 1500);
     } else {
-        pauseQuiz();
+        // pauseQuiz();
+        setTimeout(startQuiz, 1500);
     };
 }
 
 function finalScore() {
-    console.log("end of question array");
+    seeHighScores.addEventListener("click", showHighScores);
+    seeHighScores.innerHTML = "<h2>Click Here to see the High Scores</h2>"
     feedbackSection.innerHTML = "";
     //show end of game
     mainText.textContent = "Finished!";
+    score = score + secondsScore;
     inputSection.textContent = "Your final score is: " + score;
     // check for high scores
     var latestScores = JSON.parse(localStorage.getItem("highScores"));
-    console.log(latestScores)
     //initialize scores variable if doesn't already exist in local storage
     if (latestScores === null) {
         latestScores = scoresArray;
         localStorage.setItem("highScores", JSON.stringify(latestScores));
-        console.log(latestScores);
-        console.log(latestScores.length);
         //print results to screen
         inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p> <h2>New High Score!</h2><label for="initials">Enter your initials:</label> <input type="text" name="initials" class="initials"></input><button class="initialSubmit">Submit</button>';
         //add event listener for button
         var hsSubmitButton = document.querySelector(".initialSubmit");
         hsSubmitButton.addEventListener("click", logHighScores);
-        console.log(hsSubmitButton);
     } else {
         //check to see if top ten scores
         var latestScores = JSON.parse(localStorage.getItem("highScores"));
-        console.log(latestScores.length);
         highScoresLength = latestScores.length;
-        console.log(highScoresLength);
         for (i = 0; i < highScoresLength; i++) {
-            console.log(latestScores[i][1]);
             if (score >= latestScores[i][1]) {
                 inputSection.innerHTML = '<p>Your final score is: ' + score + '.</p> <h2>New High Score!</h2><label for="initials">Enter your initials:</label> <input type="text" name="initials" class="initials"></input><button class="initialSubmit">Submit</button>';
                 //add event listener for button
@@ -202,16 +230,11 @@ function finalScore() {
             }
         }
     }
-
 }
 
-
 function logHighScores() {
-    console.log(score);
     hsInitials = document.querySelector(".initials").value;
-    console.log(hsInitials);
     var latestScores = JSON.parse(localStorage.getItem("highScores"));
-    console.log(latestScores.length);
     //Make sure no more than 10 entries in latest scores
     if (latestScores > 10) {
         latestScores.pop();
@@ -219,7 +242,6 @@ function logHighScores() {
     highScoresLength = latestScores.length;
     //find location in high scores array for latest high score
     for (i = 0; i < highScoresLength; i++) {
-        console.log(latestScores[i][1]);
         if (score >= latestScores[i][1]) {
             if (i === 0) {
                 //add new score to beginning, then add to i to stop loop
@@ -236,10 +258,7 @@ function logHighScores() {
                 latestScores.push([hsInitials, score]);
             } else {
                 // add new data in the current index
-                console.log(i);
-                console.log(latestScores[i]);
                 latestScores.splice(i, 0, [hsInitials, score]);
-                console.log('current score array: ' + latestScores);
                 //force for loop to close4
                 i = i + 10;
                 //if latestscore is now > 10, remove the last element
@@ -247,11 +266,9 @@ function logHighScores() {
                     latestScores.pop();
                 }
             }
-
         }
     }
     //save new high scores
-    console.log(latestScores);
     localStorage.setItem("highScores", JSON.stringify(latestScores));
     showHighScores();
 }
@@ -261,11 +278,8 @@ function showHighScores() {
     //get high scores from local storage
     var latestScores = JSON.parse(localStorage.getItem("highScores"));
     inputSection.textContent = "";
-
-    console.log(latestScores.length);
     // To get for loop to work with multiple children, must define create element in each loop
     for (let i = 0; i < latestScores.length; i++) {
-        console.log(i);
         var hsPara = document.createElement("p");
         hsPara.setAttribute("class", "highScoreRows")
         hsPara.innerText = latestScores[i][0] + ' - ' + latestScores[i][1];
@@ -288,43 +302,8 @@ function startOver() {
     location.reload();
 }
 
-function pauseQuiz() {
-    var secondsLeft = 2;
-    //how use settimeout? Change to set timeout for more accurate times?
-    // stop listening for clicks on rows. clicking during timer causes errors
-    document.querySelector(".guess0").removeEventListener("click", checkGuess);
-    document.querySelector(".guess1").removeEventListener("click", checkGuess);
-    document.querySelector(".guess2").removeEventListener("click", checkGuess);
-    document.querySelector(".guess3").removeEventListener("click", checkGuess);
-    // Sets interval in variable
-    var timerInterval = setInterval(function () {
-        secondsLeft--;
-        if (secondsLeft === 0) {
-            // Stops execution of action at set interval
-            clearInterval(timerInterval);
-            // Calls function to create and append image
-            startQuiz();
-        }
 
-    }, 1000);
-}
-
-function pauseTimer() {
-    var secondsLeft = 2;
-    // stop listening for clicks on rows. clicking during timer causes errors
-    document.querySelector(".guess0").removeEventListener("click", checkGuess);
-    document.querySelector(".guess1").removeEventListener("click", checkGuess);
-    document.querySelector(".guess2").removeEventListener("click", checkGuess);
-    document.querySelector(".guess3").removeEventListener("click", checkGuess);
-    // Sets interval in variable
-    var timerInterval = setInterval(function () {
-        secondsLeft--;
-        if (secondsLeft === 0) {
-            // Stops execution of action at set interval
-            clearInterval(timerInterval);
-            // Calls function to create and append image
-            finalScore();
-        }
-
-    }, 1000);
-}
+function dontShowHighScores() {
+    seeHighScores.innerHTML = "<h2>You're in the middle of a quiz! Don't try to look at scores!</h2>"
+    
+};

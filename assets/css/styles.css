@@ -1,33 +1,34 @@
 :root {
     --darkBackground: #94281d;
     --lightText: #e0a770;
-    --lightBackground:#ffe5cc;
-    --darkText:#430600;
+    --lightBackground: #ffe5cc;
+    --darkText: #430600;
     --lightTransparent: rgba(255, 229, 204, .3)
 }
 
 /* Global */
 * {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
+
 body {
     background-color: var(--lightBackground);
-    color:var(--darkText);
+    color: var(--darkText);
 }
 
 button {
-    padding:20px;
-    font-weight:bold;
-    background-color:var(--darkBackground);
-    color:var(--lightText);
-    border-radius:10px;
-    margin:20px;  
-    box-shadow:inset 5px 5px var(--lightTransparent);  
+    padding: 20px;
+    font-weight: bold;
+    background-color: var(--darkBackground);
+    color: var(--lightText);
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: inset 5px 5px var(--lightTransparent);
 }
 
 button:active {
-    box-shadow:inset 5px 5px var(--darkText) ;
+    box-shadow: inset 5px 5px var(--darkText);
 }
 
 html {
@@ -39,127 +40,146 @@ h1 {
 }
 
 header {
-    height:100px;
-    background-color:var(--darkBackground);
+    height: 100px;
+    background-color: var(--darkBackground);
     text-align: center;
-    padding:20px;
+    padding: 20px;
     color: var(--lightText);
 }
 
 main {
-    
-    display:flex;
-    justify-content:space-between;
+    display: flex;
+    justify-content: space-between;
     margin: 0 50px;
-    text-align:center; 
+    text-align: center;
+    transition: all .3s;
 }
 
-main ul, main ol {
-    margin-top:50px;
+main ul,
+main ol {
+    margin-top: 50px;
     list-style-type: none;
-    text-align:left;
+    text-align: left;
 }
 
 li {
-    margin:10px 0;
+    margin: 10px 0;
 }
 
 p {
-    margin:10px 0;
+    margin: 10px 0;
 }
 
 /* id's */
 #highScores {
-    width:20%;
-    padding:30px 0 0 0 ;
+    width: 20%;
+    padding: 30px 0 0 0;
     text-align: left;
-    min-height:60vh;
+    min-height: 60vh;
     cursor: pointer;
-
 }
 
 #timer {
-    width:20%;
-    padding:30px 0 0 0 ;
+    width: 20%;
+    padding: 30px 0 0 0;
     text-align: right;
-    min-height:60vh;
-
+    min-height: 60vh;
 }
 
 #questContainer {
-    width:55%;
-    border-left:10px solid var(--darkBackground);
-    border-right:10px solid var(--darkBackground);
-    border-bottom:10px solid var(--darkBackground);
-    padding:30px 10px 0 10px ;
-    min-height:60vh;
-    
-
+    width: 55%;
+    border-left: 10px solid var(--darkBackground);
+    border-right: 10px solid var(--darkBackground);
+    border-bottom: 10px solid var(--darkBackground);
+    padding: 30px 10px 0 10px;
+    min-height: 60vh;
+    transiiton: all .3s;
 }
 
 /* classes */
 .choices {
-
-    margin:0 20px;
-    
+    margin: 0 20px;
 }
 
 .choices .highScoreRows:nth-child(odd) {
-    background-color:var(--lightText);
-    color:var(--lightBackground);
-    padding:10px;
+    background-color: var(--lightText);
+    color: var(--lightBackground);
+    padding: 10px;
 }
 
 .choices .highScoreRows:nth-child(even) {
-    background-color:var(--lightBackground);
-    color:var(--darkText);
-    padding:10px;
+    background-color: var(--lightBackground);
+    color: var(--darkText);
+    padding: 10px;
 }
+
 .correct {
-    background-color:green;
+    background-color: green;
 }
 
 .guessRow {
     background-color: var(--darkBackground);
-    color:var(--lightBackground);
-    padding:10px;
-    font-weight:bold;
+    color: var(--lightBackground);
+    padding: 10px;
+    font-weight: bold;
     cursor: pointer;
-    width:60%;
+    width: 60%;
 }
 
 .guessRow:active {
     box-shadow: inset 5px 5px var(--darkText);
-    color:var(--lightText);
+    color: var(--lightText);
     /* padding:10px;
     font-weight:bold;
     cursor: pointer; */
 }
 
 .highScoreHeader {
-    border-bottom:5px solid var(--darkText);
-    padding-bottom:15px;
+    border-bottom: 5px solid var(--darkText);
+    padding-bottom: 15px;
 }
 
 .results {
     border-top: 2px solid var(--darkBackground);
-    height:20%;
-    font-weight:bold;
-    font-size:1.5em;
-    font-style:italic;
-    padding-top:30px;
-    margin-top:50px;
+    height: 20%;
+    font-weight: bold;
+    font-size: 1.5em;
+    font-style: italic;
+    padding-top: 30px;
+    margin-top: 50px;
 }
 
 .correct {
-    background-color:green;
+    background-color: green;
 }
 
 .incorrect {
-    background-color:red;
+    background-color: red;
+}
+
+.timeLeft {
+    font-size: 3em;
+}
+
+.red {
+    color: red;
 }
 
 /* Media queries */
+@media screen and (max-width:768px) {
+    main {
+        margin: 0 10px;
+        justify-content: space-around;
+    }
 
+    #questContainer {
+        border-left: 5px solid var(--darkBackground);
+        border-right: 5px solid var(--darkBackground);
+        border-bottom: 5px solid var(--darkBackground);
+    }
 
-
+    #highScores h2 {
+        font-size:1.2em;
+    }
+    
+}
