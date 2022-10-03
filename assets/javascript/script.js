@@ -178,11 +178,6 @@ function startQuiz() {
 
 function checkGuess(event) {
     // stop listening for clicks on rows. clicking during timer causes errors
-    // document.querySelector(".guess0").removeEventListener("click", checkGuess);
-    // document.querySelector(".guess1").removeEventListener("click", checkGuess);
-    // document.querySelector(".guess2").removeEventListener("click", checkGuess);
-    // document.querySelector(".guess3").removeEventListener("click", checkGuess);
-    // Refactor to use for loop
     for (let i = 0; i < questionArray[questionNumber].choices.length; i++) {
         document.querySelector(".guess" +i).removeEventListener("click", checkGuess);
     };
