@@ -74,6 +74,7 @@ ___
 
 - I'd like to animate some transitions between screens but I feel that may come later with react frameworks. I'm sure I could figure it out eventually with CSS, but I'm also sure there's an easier solution in the future.
 - I wouldn't mind having a version that's styled as and old 8-bit game.
+- Create delegated event listeners?
 
 
 ___

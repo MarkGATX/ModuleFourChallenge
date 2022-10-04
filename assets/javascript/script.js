@@ -13,70 +13,66 @@ let start = document.querySelector(".start");
 let seeHighScores = document.querySelector("#highScores");
 //variables for creating answer lists
 let questList = document.createElement("ul");
-let questChoice0 = document.createElement("li");
-let questChoice1 = document.createElement("li");
-let questChoice2 = document.createElement("li");
-let questChoice3 = document.createElement("li");
 let timeLeft = document.querySelector(".timeLeft");
 var timerInterval;
 
 // Define questions for quiz
-let questionsObject = {
-    question0: {
+let questionArray = [
+    {
         question: "What is the opening tag on every HTML page?",
         choices: ["<!DOCTYPE html>", "<head>", "<html>", "<body>"],
         answer: "<!DOCTYPE html>"
     },
-    question1: {
+    {
         question: "What is the CSS attribute that changes text color?",
         choices: ["color", "font", "background", "border"],
         answer: "color"
     },
-    question2: {
+    {
         question: "What command can you use to cause a funtion to fire after waiting a set amount of time?",
         choices: ["setInterval();", "addEventListener();", "createElement();", "setAttribute();"],
         answer: "setInterval();"
     },
-    question3: {
+    {
         question: "What CSS attribute changes the space between an element's content and its border?",
         choices: ["padding", "margin", "width", "display"],
         answer: "padding"
     },
-    question4: {
+    {
         question: "Where can you store local data from your page to use between user sessions?",
         choices: ["local storage", "console", "ILE", "Google"],
         answer: "local storage"
     },
-    question5: {
+    {
         question: "What are the 6-character codes used to describe colors called?",
         choices: ["HEX codes", "RGB", "HSL", "RGBa"],
         answer: "HEX codes"
     },
-    question6: {
+    {
         question: "How many numbers make up an RGB color code?",
         choices: ["three", "six", "four", "one"],
         answer: "three"
     },
-    question7: {
+    {
         question: "What is it called with a javascript event causes events in its parent element to fire?",
         choices: ["bubbling", "trickling", "problems", "inheritance"],
         answer: "bubbling"
     },
-    question8: {
+    {
         question: "What does HTML stand for?",
         choices: ["Hyper Text Markup Language", "Hostile Texting Makes Lunch", "Holistic Tech Machine Language", "Harry Took Many Lemons"],
         answer: "Hyper Text Markup Language"
     },
-    question9: {
+    {
         question: "What event does the browser register when typing on your keyboard?",
         choices: ["keypress", "hover", "click", "onMouseOver"],
         answer: "keypress"
     }
-};
+];
 
 
 //convert questions from object to array
-questionArray = Object.values(questionsObject);
+// questionArray = Object.values(questionsObject);
 //shuffle questions array
 for (let i = questionArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -108,17 +104,13 @@ start.addEventListener("click", startTimer);
 
 
 //The test timer function --- variable declared without var, let, or const is automatically global?!?!?
-function startTimer() {  
-    // //stop high score click element to keep user from interrupting test
-    // seeHighScores.removeEventListener("click", showHighScores);  
-    // //set new listener to give feedback on why it won't work now
-    // seeHighScores.addEventListener("click", dontShowHighScores);
+function startTimer() {
     timerInterval = setInterval(function () {
         if (secondsLeft <= 0) {
             timeLeft.innerText = 0;
         } else {
-                timeLeft.innerText = secondsLeft;
-            };
+            timeLeft.innerText = secondsLeft;
+        };
         if (secondsLeft < 25) {
             timeLeft.classList.add("red");
         };
@@ -129,8 +121,8 @@ function startTimer() {
             // Calls function to create and append image
             finalScore();
         }
-    }, 1000);  
-    startQuiz();  
+    }, 1000);
+    startQuiz();
 }
 
 // The quiz function itself
@@ -140,28 +132,6 @@ function startQuiz() {
     //clear choices and response text
     feedbackSection.innerHTML = "";
     inputSection.innerHTML = " ";
-    //populate choices as li -- refactor as for loop like with showHighScores. Requires define each element variable in the loop
-    // questList.setAttribute("class", "possAnswers");
-    // questChoice0.setAttribute("class", "guess0 guessRow");
-    // questChoice1.setAttribute("class", "guess1 guessRow");
-    // questChoice2.setAttribute("class", "guess2 guessRow");
-    // questChoice3.setAttribute("class", "guess3 guessRow");
-    // inputSection.appendChild(questList);
-    // questChoice0.textContent = questionArray[questionNumber].choices[0];;
-    // questList.appendChild(questChoice0);
-    // questChoice1.textContent = questionArray[questionNumber].choices[1];;
-    // questList.appendChild(questChoice1);
-    // questChoice2.textContent = questionArray[questionNumber].choices[2];;
-    // questList.appendChild(questChoice2);
-    // questChoice3.textContent = questionArray[questionNumber].choices[3];;
-    // questList.appendChild(questChoice3);
-    // //Add event listener for clicks on li choices
-    // // Do I need to do this on every run of startQuiz
-    // document.querySelector(".guess0").addEventListener("click", checkGuess);
-    // document.querySelector(".guess1").addEventListener("click", checkGuess);
-    // document.querySelector(".guess2").addEventListener("click", checkGuess);
-    // document.querySelector(".guess3").addEventListener("click", checkGuess);
-    // return;
     //Refactor to use for loop
     let questListLoop = document.createElement("ul");
     questListLoop.setAttribute("class", "possAnswers");
@@ -177,9 +147,9 @@ function startQuiz() {
 }
 
 function checkGuess(event) {
-    // stop listening for clicks on rows. clicking during timer causes errors
+    // Refactor to use for loop
     for (let i = 0; i < questionArray[questionNumber].choices.length; i++) {
-        document.querySelector(".guess" +i).removeEventListener("click", checkGuess);
+        document.querySelector(".guess" + i).removeEventListener("click", checkGuess);
     };
     //returns text value of click event
     if (event.path[0].textContent === questionArray[questionNumber]["answer"]) {
@@ -197,6 +167,7 @@ function checkGuess(event) {
         //need to stop overall timer and get seconds left
         secondsScore = secondsLeft;
         clearInterval(timerInterval);
+        timeLeft.innerText = secondsLeft;
         // pauseTimer();
         setTimeout(finalScore, 1500);
     } else {
@@ -204,7 +175,7 @@ function checkGuess(event) {
         if (secondsLeft <= 0) {
             return;
         } else {
-        setTimeout(startQuiz, 1500);
+            setTimeout(startQuiz, 1500);
         }
     };
 }
@@ -323,9 +294,3 @@ function clearHighScores() {
 function startOver() {
     location.reload();
 }
-
-
-// function dontShowHighScores() {
-//     seeHighScores.innerHTML = "<h2>You're in the middle of a quiz! Don't try to look at scores!</h2>"
-    
-// };
