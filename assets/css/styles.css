@@ -3,7 +3,8 @@
     --lightText: #e0a770;
     --lightBackground: #ffe5cc;
     --darkText: #430600;
-    --lightTransparent: rgba(255, 229, 204, .3)
+    --lightTransparent: rgba(255, 229, 204, .3);
+
 }
 
 /* Global */
@@ -110,7 +111,7 @@ p {
 
 .choices .highScoreRows:nth-child(odd) {
     background-color: var(--lightText);
-    color: var(--lightBackground);
+    color: var(--darkText);
     padding: 10px;
 }
 
