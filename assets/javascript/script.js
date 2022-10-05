@@ -95,7 +95,7 @@ var secondsLeft = questionArray.length * 15;
 var secondsScore = 0;
 
 
-//Set event listener to High Scores button -- need to make function
+//Set event listener to High Scores button 
 seeHighScores.addEventListener("click", showHighScores);
 
 
@@ -152,15 +152,15 @@ function checkGuess(event) {
         document.querySelector(".guess" + i).removeEventListener("click", checkGuess);
     };
     //returns text value of click event
-    if (event.path[0].textContent === questionArray[questionNumber]["answer"]) {
+    if (event.target.textContent === questionArray[questionNumber]["answer"]) {
         questionNumber++;
-        event.path[0].classList.add("correct");
+        event.target.classList.add("correct");
         feedbackSection.textContent = "Correct!";
         score += 5;
     } else {
         questionNumber++;
         feedbackSection.textContent = "Wrong!";
-        event.path[0].classList.add("incorrect");
+        event.target.classList.add("incorrect");
         secondsLeft = secondsLeft - 15;
     }
     if (questionNumber === questionArray.length) {
